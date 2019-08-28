@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -48,16 +49,17 @@ public class  Employee {
     
     @PutMapping(path = "/{id}")
     public ResponseEntity<EmployeeInformation> updateEmployee (@PathVariable String id,EmployeeInformation employee){
-    	for(EmployeeInformation employee  : employees) {
-    		for(int i=0;i<employees.size(),i++) {
-    			if(employee.getId().equals(id))
-        			return  employees = employee;
+    		for(int i=0;i<employees.size();i++) {
+    			if(employees.get(i).getId().equals(id)) {
+    				employees.set(i, employee);
+    			}
+        			return  ResponseEntity.ok(employee);
     		}
     	
-    	}
+    	
 		return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
-    
+//    
     @DeleteMapping(path = "/{id}")
 //  @ResponseStatus(HttpStatus.CREATED)
   public void deleteEmployee (@PathVariable String id){
